@@ -8,6 +8,7 @@
 const LDI = 0b10011001;
 const PRN = 0b01000011;
 const HLT = 0b00000001;
+const MUL = 0b10101010;
 
 
 class CPU {
@@ -61,6 +62,7 @@ class CPU {
         switch (op) {
             case 'MUL':
                 // !!! IMPLEMENT ME
+                this.reg[regA] *= this.reg[regB];
                 break;
         }
     }
@@ -96,17 +98,21 @@ class CPU {
             case LDI:
                 // Set the value in a register
                 this.reg[operandA] = operandB;
-                this.PC += 3; //Next Instruction
+                // this.PC += 3; //Next Instruction
                 break;
 
             case PRN:
                 console.log(this.reg[operandA])
-                this.PC += 2;
+                // this.PC += 2;
+                break;
+
+            case MUL:
+                this.alu('MUL', operandA, operandB);
                 break;
                 
             case HLT:
                 this.stopClock();
-                this.PC += 1;
+                // this.PC += 1;
                 break;
 
             default:
@@ -121,6 +127,8 @@ class CPU {
         // for any particular instruction.
         
         // !!! IMPLEMENT ME
+        const instlen = (IR >> 6) +1;
+        this.PC += instlen;
     }
 }
 
