@@ -3,7 +3,7 @@ const CPU = require('./cpu');
 const fs = require('fs');
 
 const args = process.argv;
-console.log(args);
+// console.log(args);
 
 if (args.length != 3) {
     if (args.length < 3) console.error(' Missing arguments: \n\n     provide a file to run')
@@ -40,10 +40,9 @@ function loadMemory() {
     //     cpu.poke(i, parseInt(program[i], 2));
     // }
     try {
-        const regexp = /[0-9]{8}/gi;
+        const regexp = /[0-9]{8}/g;
         const program = fs.readFileSync(`${args[2]}`, "utf-8").match(regexp);
 
-        //Load the program into the CPU's memory a byte at a time
         for (let i = 0; i < program.length; i++) {
             cpu.poke(i, parseInt(program[i], 2));
         }
