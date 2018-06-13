@@ -120,6 +120,16 @@ class CPU {
                 // this.PC += 1;
                 break;
 
+            case PUSH:
+                this.reg[SP]--;
+                this.ram.write(this.reg[SP], this.reg[operandA]);
+                break;
+                
+            case POP:
+                this.reg[operandA] = this.ram.read(this.reg[SP]);
+                this.reg[SP]++;
+                break;  
+
             default:
                 console.log('Unknown instruction: ' + IR.toString(2));
                 this.stopClock();
