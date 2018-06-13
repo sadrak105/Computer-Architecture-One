@@ -12,6 +12,8 @@ const MUL = 0b10101010;
 const POP = 0b01001100;
 const PUSH = 0b01001101;
 
+const SP = 7
+
 
 class CPU {
 
@@ -23,6 +25,7 @@ class CPU {
 
         this.reg = new Array(8).fill(0); // General-purpose registers R0-R7
         
+        this.reg[SP] = 0xf4;
         // Special-purpose registers
         this.PC = 0; // Program Counter
     }
