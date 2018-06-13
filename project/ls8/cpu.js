@@ -9,6 +9,8 @@ const LDI = 0b10011001;
 const PRN = 0b01000011;
 const HLT = 0b00000001;
 const MUL = 0b10101010;
+const POP = 0b01001100;
+const PUSH = 0b01001101;
 
 
 class CPU {
