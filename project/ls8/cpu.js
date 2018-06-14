@@ -25,7 +25,7 @@ class CPU {
 
         this.reg = new Array(8).fill(0); // General-purpose registers R0-R7
         
-        this.reg[SP] = 0xf4;
+        this.reg[SP] = 0xf4; //stack pointer
         // Special-purpose registers
         this.PC = 0; // Program Counter
     }
