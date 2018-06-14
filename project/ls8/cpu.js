@@ -145,8 +145,10 @@ class CPU {
         // for any particular instruction.
         
         // !!! IMPLEMENT ME
-        const instlen = (IR >> 6) +1;
-        this.PC += instlen;
+        if (IR !== CALL && IR !== JMP && IR !== RET) {
+            const instlen = (IR >> 6) +1;
+            this.PC += instlen;
+        };
     }
 }
 
