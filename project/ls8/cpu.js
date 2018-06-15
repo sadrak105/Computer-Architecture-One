@@ -100,6 +100,9 @@ class CPU {
         // Execute the instruction. Perform the actions for the instruction as
         // outlined in the LS-8 spec.
 
+        //Flag for PC advancment
+        this.pcAdvance = true;
+
         // !!! IMPLEMENT ME
 
         switch(IR) {
@@ -131,7 +134,17 @@ class CPU {
             case POP:
                 this.reg[operandA] = this.ram.read(this.reg[SP]);
                 this.reg[SP]++;
-                break;  
+                break; 
+                
+            case CALL:
+                this.pushValue(this.PC + 2);
+                this.pcAdvance = false;
+                break; 
+                
+            case RET:
+                this.PC = this.ram.read(this.SP++);
+                this.pcAdvance = false;
+                break;
 
             default:
                 console.log('Unknown instruction: ' + IR.toString(2));
@@ -145,10 +158,17 @@ class CPU {
         // for any particular instruction.
         
         // !!! IMPLEMENT ME
-        if (IR !== CALL && IR !== JMP && IR !== RET) {
+        
+        if (this.pcAdvance) {
             const instlen = (IR >> 6) +1;
             this.PC += instlen;
-        };
+        }
+        
+    }
+
+    pushValue(v) {
+        this.reg[SP]--;
+        this.ram.write(this.reg[SP], v);
     }
 }
 
