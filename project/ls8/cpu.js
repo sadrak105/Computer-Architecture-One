@@ -14,6 +14,9 @@ const PUSH = 0b01001101;
 const JMP = 0b01010000;
 const RET = 0b00001001;
 const CALL = 0b01001000;
+const CMP = 0b10100000;
+const JEQ = 0b01010001;
+const JNE = 0b01010010;
 
 
 const SP = 7
