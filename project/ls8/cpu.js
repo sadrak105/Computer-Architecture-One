@@ -37,6 +37,8 @@ class CPU {
         this.ram = ram;
 
         this.reg = new Array(8).fill(0); // General-purpose registers R0-R7
+
+        this.reg.FL = 0b00000000;
         
         this.reg[SP] = 0xf4; //stack pointer
         // Special-purpose registers
@@ -161,6 +163,15 @@ class CPU {
             case JMP:
                 this.reg.PC = this.reg[operandA];
                 this.pcAdvance = false;
+                break;
+
+            case CMP:
+                if (this.reg[operandA] === this.reg[operandB]) this.reg.FL |= FL_E;
+                else this.reg.FL &= ~FL_E;
+                if (this.reg[operandA] < this.reg[operandB]) this.reg.FL |= FL_L;
+                else this.reg.FL &= ~FL_L;
+                if (this.reg[operandA] > this.reg[operandB]) this.reg.FL |= FL_G;
+                else this.reg.FL &= ~FL_G;
                 break;
 
             default:
