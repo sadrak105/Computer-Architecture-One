@@ -22,6 +22,12 @@ const JNE = 0b01010010;
 const SP = 7
 
 
+// Flag values, less, greater, or equal to
+const FL_L = 0x1 << 2;
+const FL_G = 0x1 << 1;
+const FL_E = 0x1 << 0;
+
+
 class CPU {
 
     /**
