@@ -15,6 +15,7 @@ const JMP = 0b01010000;
 const RET = 0b00001001;
 const CALL = 0b01001000;
 
+
 const SP = 7
 
 
@@ -138,11 +139,18 @@ class CPU {
                 
             case CALL:
                 this.pushValue(this.PC + 2);
+                this.reg.PC = this.reg[operandA];
                 this.pcAdvance = false;
                 break; 
                 
             case RET:
-                this.PC = this.ram.read(this.SP++);
+                this.PC = this.ram.read(this.reg[SP]);
+                this.reg[SP]++;
+                this.pcAdvance = false;
+                break;
+
+            case JMP:
+                this.reg.PC = this.reg[operandA];
                 this.pcAdvance = false;
                 break;
 
@@ -169,7 +177,7 @@ class CPU {
     pushValue(v) {
         this.reg[SP]--;
         this.ram.write(this.reg[SP], v);
-    }
+    };
 }
 
 module.exports = CPU;
