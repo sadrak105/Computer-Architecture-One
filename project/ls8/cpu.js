@@ -181,6 +181,13 @@ class CPU {
                 };
                 break;
 
+            case JNE:
+                if ((this.reg.FL &= 0b00000001) === 0b0) {
+                  this.PCflag = true;
+                  this.reg.PC = this.reg[operandA];
+                }
+                break;
+
             default:
                 console.log('Unknown instruction: ' + IR.toString(2));
                 this.stopClock();
